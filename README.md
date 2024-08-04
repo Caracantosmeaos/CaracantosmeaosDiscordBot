@@ -1,0 +1,1 @@
+## Template: https://github.com/Buddier/Discord.js-v14-Example
