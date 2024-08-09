@@ -36,11 +36,12 @@ module.exports = {
             const jsonPlayer = jsonResponse.response.filter((e)=>e.name===playerName)[0]
             if(!jsonPlayer | jsonPlayer=="") throw new Error("Jugador no encontrado, por favor especifica un nombre de jugador que juegue en el club")
 
+
             embedMsg = new client.discord.EmbedBuilder()
             .setTitle('Estadísticas de '+playerName)
             .setDescription(jsonPlayer.proName+" ("+jsonPlayer.proOverall+")")
             .setAuthor(
-                {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/players/'+playerName }
+                {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/plantilla/'+playerName }
             )
             .setColor(16776960)
             .setThumbnail(`https://www.caracantosmeaos.club/players/${playerName}_full_transp.png`)
@@ -50,7 +51,7 @@ module.exports = {
                 {name: 'Asistencias', value: jsonPlayer.assists, inline: true},
                 {name: 'Tarjetas Rojas', value: jsonPlayer.redCards, inline: true},
                 {name: 'Valoración media', value: jsonPlayer.ratingAve, inline: true},
-                {name: 'Nº mejor del partido', value: jsonPlayer.manOfTheMatch, inline: true}
+                {name: 'Mejor del partido', value: jsonPlayer.manOfTheMatch, inline: true}
             )
         }catch(e){
             embedMsg = new client.discord.EmbedBuilder()
@@ -61,11 +62,11 @@ module.exports = {
                 )
                 .setColor(15548997)
         }finally{
-            //msg.delete();
             await interaction.editReply({
                 content: "",
                 embeds: [embedMsg],
-                ephemeral: true
+                ephemeral: true,
+                files: [imgattach]
             });
         }
     }

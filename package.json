@@ -1,9 +1,9 @@
 {
-  "name": "discord.js-v14-example",
+  "name": "caracantosmeaos-bot",
   "version": "1.0.0",
-  "description": "Discord.js v14 Example Bot by @Buddier",
+  "description": "Caracantosmeaos bot. Template: Discord.js v14 Example Bot by @Buddier",
   "main": "index.js",
-  "author": "Buddier",
+  "author": "el_trueno & Buddier",
   "scripts": {
     "start": "node index.js"
   },
