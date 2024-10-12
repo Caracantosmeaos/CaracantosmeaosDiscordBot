@@ -9,7 +9,9 @@ app.use(express.json());
 function start(client){
     app.post('/webhook/newmatch', (req, res) => {
         const match = req.body.match
-        newMatchWebhook.handle(client, match)
+        setTimeout(async ()=>{
+            newMatchWebhook.handle(client, match)
+        }, 3000)
         res.status(200).send("OK");
     });
     
