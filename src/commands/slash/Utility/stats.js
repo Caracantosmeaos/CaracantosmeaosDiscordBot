@@ -65,8 +65,7 @@ module.exports = {
             await interaction.editReply({
                 content: "",
                 embeds: [embedMsg],
-                ephemeral: true,
-                files: [imgattach]
+                ephemeral: true
             });
         }
     }
