@@ -14,7 +14,7 @@ module.exports = {
         },
         {
             discordId: "1016463966186262530",
-            playerName: "DonPipas"
+            playerName: "Pipasdon"
         },
         {
             discordId: "496019064725176341",
@@ -27,6 +27,9 @@ module.exports = {
         {
             discordId: "253102443506827269",
             playerName: "SitoX96"
+        },{
+            discordId: "1350589403403260127",
+            playerName: "crisfdez25"
         }
     ]
 }

@@ -42,10 +42,11 @@ async function handle(client, achievement){
             }
         }
 
+        const filename =`playerachievement_${player.playerName}_${achievement.type}_${achievement.reached}.jpeg`
+        const imgattach = await new AttachmentBuilder(IMAGE_GENERATOR_BASEURL+'/playerachievement/'+player.playerName+'?type='+achievement.type+"&reached="+achievement.reached, { name: filename })
         let embedMsg = new client.discord.EmbedBuilder()
-        .setTitle(achievement.reached+" "+achievementType)
+        .setTitle(encoraugements[Math.floor(Math.random() * encoraugements.length)])
         .setDescription(
-            "**"+encoraugements[Math.floor(Math.random() * encoraugements.length)]+"**"+
             "\n\nNuestro jugador "+playerMention+" ha alcanzado esta increíble cifra de "+achievementType+
             "\n\n¡A por más!"
         )
@@ -53,82 +54,9 @@ async function handle(client, achievement){
             {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/plantilla/'+player.playerName }
         )
         .setColor(16776960)
-        .setThumbnail(`https://www.caracantosmeaos.club/players/${player.playerName}_full_transp.png`)
+        .setImage('attachment://'+filename)
 
-        /*
-        const players = match.localTeam ? match.localClub.players : match.awayClub.players
-        let playerMentions = ""
-        for(p in players){
-            var player = players[p]
-            var discordId = client.playerDatabase.players.filter((e)=>e.playerName===player.playername)[0].discordId
-            playerMentions+=`<@${discordId}> `
-        }
-    
-        let embedMsg
-        const imgattach = await new AttachmentBuilder(BASE_URL+'/matchsummary/'+match.matchId, { name: `match_${match.matchId}.jpeg` })
-        switch(match.result){
-            case "tie": {
-                embedMsg = new client.discord.EmbedBuilder()
-                .setTitle('Tablas en el marcador')
-                .setDescription(
-                    "Resultado muy apretado y reparto de puntos en nuestro último partido"+
-                    "\n\n¡Las victorias llegarán!"+
-                    "\n\n*Plantilla: "+playerMentions+"*"
-                )
-                .setAuthor(
-                    {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/partidos'}
-                )
-                .setImage(`attachment://match_${match.matchId}.jpeg`)
-                .setColor(9807270)
-    
-                break;
-            }
-            case "loose": {
-                embedMsg = new client.discord.EmbedBuilder()
-                .setTitle('Derrota en nuestro último encuentro')
-                .setDescription(
-                    "El equipo no consiguío hacerse con la victoria en el último partido disputado"+
-                    "\n\nA seguir trabajando"+
-                    "\n\n*Plantilla: "+playerMentions+"*"
-                )
-                .setAuthor(
-                    {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/partidos'}
-                )
-                .setImage(`attachment://match_${match.matchId}.jpeg`)
-                .setColor(15548997)
-    
-                break;
-            }
-            case "win": {
-                embedMsg = new client.discord.EmbedBuilder()
-                .setTitle('¡Victoria!')
-                .setDescription(
-                    "Victoria de los nuestros en el último partido"+
-                    "\n\n¡Enhorabuena equipo!"+
-                    "\n\n*Plantilla: "+playerMentions+"*"
-                )
-                .setAuthor(
-                    {name: 'Ver más en la web', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png', url:'https://www.caracantosmeaos.club/partidos'}
-                )
-                .setImage(`attachment://match_${match.matchId}.jpeg`)
-                .setColor(5763719)
-    
-                break;
-            }
-            default:
-                console.error("[NewMatchWebhook] Error getting match result")
-                embedMsg = new client.discord.EmbedBuilder()
-                .setTitle('Ha ocurrido un error ')
-                .setDescription("No se ha podido obtener los datos del partido")
-                .setAuthor(
-                    {name: 'Caracantosmeaos C.F', iconURL: 'https://www.caracantosmeaos.club/escudo2024.png'}
-                )
-                .setImage(`attachment://match_${match.matchId}.jpeg`)
-                .setColor(15548997)
-        }
         await announcementsChannel.send({embeds: [embedMsg], files:[imgattach]})
-        console.info("[Webhook Listener] 'newmatch' Webhook: Message sended")*/
-        await announcementsChannel.send({embeds: [embedMsg]})
         console.info("[Webhook Listener] 'memberachievement' Webhook: Message sended")
     }catch(e){
         console.error("[Webhook Listener] 'memberachievement' Webhook: "+e)
