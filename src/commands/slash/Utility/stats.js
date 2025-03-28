@@ -33,7 +33,7 @@ module.exports = {
             if(!apiResponse.status || apiResponse.status!=200) throw new Error("Error conectando con la API")
 
             const jsonResponse = await apiResponse.json()
-            const jsonPlayer = jsonResponse.response.filter((e)=>e.name===playerName)[0]
+            const jsonPlayer = jsonResponse.response.filter((e)=>e.playerName===playerName)[0]
             if(!jsonPlayer | jsonPlayer=="") throw new Error("Jugador no encontrado, por favor especifica un nombre de jugador que juegue en el club")
 
 
@@ -46,14 +46,15 @@ module.exports = {
             .setColor(16776960)
             .setThumbnail(`https://www.caracantosmeaos.club/players/${playerName}_full_transp.png`)
             .addFields(
-                {name: 'Partidos jugados', value: jsonPlayer.gamesPlayed, inline: true},
-                {name: 'Goles', value: jsonPlayer.goals, inline: true},
-                {name: 'Asistencias', value: jsonPlayer.assists, inline: true},
-                {name: 'Tarjetas Rojas', value: jsonPlayer.redCards, inline: true},
-                {name: 'Valoración media', value: jsonPlayer.ratingAve, inline: true},
-                {name: 'Mejor del partido', value: jsonPlayer.manOfTheMatch, inline: true}
+                {name: 'Partidos jugados', value: ""+jsonPlayer.gamesPlayed, inline: true},
+                {name: 'Goles', value: ""+jsonPlayer.goals, inline: true},
+                {name: 'Asistencias', value: ""+jsonPlayer.assists, inline: true},
+                {name: 'Tarjetas Rojas', value: ""+jsonPlayer.redCards, inline: true},
+                {name: 'Valoración media', value: ""+jsonPlayer.ratingAve, inline: true},
+                {name: 'Mejor del partido', value: ""+jsonPlayer.manOfTheMatch, inline: true}
             )
         }catch(e){
+            console.error(e)
             embedMsg = new client.discord.EmbedBuilder()
                 .setTitle('Ha ocurrido un error: ')
                 .setDescription(e.message)
