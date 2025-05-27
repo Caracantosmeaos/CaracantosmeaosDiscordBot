@@ -1,4 +1,5 @@
 
+const rabbitmqHandler = require("../../handlers/rabbitmqHandler")
 module.exports = {
     name: 'ready',
     once: true,
@@ -14,5 +15,8 @@ module.exports = {
         
         // Send a message on the console
         console.log(`[LOG] ${client.user.tag} activo`);
+
+        //Start listening rabbitmq
+        rabbitmqHandler.startConsumer(client)
     }
 }

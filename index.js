@@ -33,8 +33,6 @@ handler.loadEvents(client);
 //handler.loadCommands(client);
 handler.loadSlashCommands(client);
 
-webhookHandler.start(client)
-
 // Error Handling
 process.on("uncaughtException", (err) => {
     console.error('Uncaught Exception:', err);

@@ -5,7 +5,7 @@ const IMAGE_GENERATOR_BASEURL = process.env.IMAGE_GENERATOR_BASEURL || "http://l
 
 async function handle(client, achievement){
     try{
-        console.log("[Webhook Listener] 'memberachievement' Webhook recieved")
+        console.log("[Event Listener] 'memberachievement' event recieved")
         const announcementsChannel = await client.channels.cache.get("1134219726780911667")
 
         const player = achievement.player
@@ -57,9 +57,9 @@ async function handle(client, achievement){
         .setImage('attachment://'+filename)
 
         await announcementsChannel.send({embeds: [embedMsg], files:[imgattach]})
-        console.info("[Webhook Listener] 'memberachievement' Webhook: Message sended")
+        console.info("[Event Listener] 'memberachievement' hook: Message sended")
     }catch(e){
-        console.error("[Webhook Listener] 'memberachievement' Webhook: "+e)
+        console.error("[Event Listener] 'memberachievement' hook: "+e)
     }
 }
 

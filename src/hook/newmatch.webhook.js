@@ -78,10 +78,10 @@ async function handle(client, match){
                 .setImage(`attachment://match_${match.matchId}.jpeg`)
                 .setColor(15548997)
         }
-        await matchesChannel.send({embeds: [embedMsg], files:[imgattach]})
-        console.info("[Webhook Listener] 'newmatch' Webhook: Message sended")
+        await matchesChannel.send({embeds: [embedMsg], files:[]})
+        console.info("[Event Listener] 'newmatch' hook: Message sended")
     }catch(e){
-        console.error("[Webhook Listener] 'newmatch' Webhook: "+e)
+        console.error("[Event Listener] 'newmatch' hook: ", e)
     }
 }
 
