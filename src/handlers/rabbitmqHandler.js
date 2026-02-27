@@ -2,8 +2,8 @@ const amqp = require('amqplib');
 const path = require('path');
 require('dotenv').config();
 
-const newMatchWebhook = require('../hook/newmatch.webhook');
-const memberAchievementWebhook = require('../hook/memberachievement.webhook');
+const newMatchWebhook = require('../hook/newmatch.hook');
+const memberAchievementWebhook = require('../hook/memberachievement.hook');
 
 const EXCHANGE_NAME = 'events';
 const QUEUE_NAME = 'discordbot';
@@ -13,6 +13,8 @@ async function startConsumer(client) {
     const connection = await amqp.connect(process.env.RABBITMQ_URL || 'amqp://localhost');
     const channel = await connection.createChannel();
 
+    await channel.prefetch(1);
+
     await channel.assertExchange(EXCHANGE_NAME, 'topic', { durable: true });
     await channel.assertQueue(QUEUE_NAME, { durable: true });
 
@@ -21,7 +23,7 @@ async function startConsumer(client) {
 
     console.log('[RabbitMQ] Listening...');
 
-    channel.consume(QUEUE_NAME, async (msg) => {
+    /*channel.consume(QUEUE_NAME, async (msg) => {
       if (!msg) return;
 
       const routingKey = msg.fields.routingKey;
@@ -44,10 +46,39 @@ async function startConsumer(client) {
         }
       } catch (err) {
         console.error(`[RabbitMQ] Error processing event ${routingKey}`, err);
-      } finally {
+      }
+      channel.ack(msg);
+    });*/
+    channel.consume(QUEUE_NAME, async (msg) => {
+      if (!msg) return;
+
+      const routingKey = msg.fields.routingKey;
+      const content = JSON.parse(msg.content.toString());
+
+      try {
+        switch (routingKey) {
+          case 'match.new':
+            await newMatchWebhook.handle(client, content);
+            break;
+
+          case 'player.achievement':
+            await memberAchievementWebhook.handle(client, content);
+            break;
+
+          default:
+            console.warn(`[RabbitMQ] Unknown event type: ${routingKey}`);
+        }
+
         channel.ack(msg);
+
+      } catch (err) {
+        console.error(`[RabbitMQ] Error processing event ${routingKey}`, err);
+
+        channel.nack(msg, false, true);
       }
     });
+
+
   } catch (err) {
     console.error('[RabbitMQ] Error connecting to rabbitmq:', err);
   }

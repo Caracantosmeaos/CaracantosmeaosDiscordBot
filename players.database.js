@@ -27,9 +27,14 @@ module.exports = {
         {
             discordId: "253102443506827269",
             playerName: "SitoX96"
-        },{
+        },
+        {
             discordId: "1350589403403260127",
             playerName: "crisfdez25"
+        },
+        {
+            discordId: "751203365110808688",
+            playerName: "13alfons"
         }
     ]
 }

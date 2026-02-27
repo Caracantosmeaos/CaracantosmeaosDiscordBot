@@ -201,3 +201,4 @@ package-lock.json
 !.vscode/fix.cmd
 !.vscode/fix.reg
 
+*.database.js

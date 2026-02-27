@@ -7,7 +7,6 @@ console.debug(`Iniciando...`);
 const Discord = require('discord.js');
 const { Client, Collection, GatewayIntentBits } = Discord;
 const handler = require("./src/handlers/index");
-const webhookHandler = require("./src/handlers/webhookHandler")
 
 const client = new Client({
     // Or use https://discord-intents-calculator.vercel.app/
@@ -19,12 +18,12 @@ const client = new Client({
 require('dotenv').config();
 
 // Global Variables
-client.discord  = Discord;
+client.discord = Discord;
 client.commands = new Collection();
-client.slash    = new Collection();
-client.config   = require('./config');
+client.slash = new Collection();
+client.config = require('./config');
 client.playerDatabase = require('./players.database')
-client.cwd      = require('process').cwd(); // require('path').resolve(``);
+client.cwd = require('process').cwd(); // require('path').resolve(``);
 
 module.exports = client;
 

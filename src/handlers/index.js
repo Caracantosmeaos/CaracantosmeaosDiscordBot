@@ -1,5 +1,5 @@
 
-const fs    = require("fs");
+const fs = require("fs");
 const chalk = require("chalk");
 
 /**
@@ -11,17 +11,17 @@ const loadEvents = async function (client) {
         const eventFiles = fs
             .readdirSync(`${client.cwd}/src/events/${folder}`)
             .filter((file) => file.endsWith(".js"));
-        
+
         for (const file of eventFiles) {
             const event = require(`${client.cwd}/src/events/${folder}/${file}`);
-            
+
             if (event.name) {
                 console.log(chalk.bgBlueBright.black(` ✔️ => Event ${file} loaded `));
             } else {
                 console.log(chalk.bgRedBright.black(` ❌ => Event ${file} missing a help.name or help.name is not in string `));
                 continue;
             }
-            
+
             if (event.once) {
                 client.once(event.name, (...args) => event.execute(...args, client));
             } else {
@@ -75,10 +75,10 @@ const loadSlashCommands = async function (client) {
         const commandFiles = fs
             .readdirSync(`${client.cwd}/src/commands/slash/${folder}`)
             .filter((file) => file.endsWith(".js"));
-        
+
         for (const file of commandFiles) {
             const command = require(`${client.cwd}/src/commands/slash/${folder}/${file}`);
-            
+
             if (command.name) {
                 client.slash.set(command.name, command);
                 slash.push(command)
@@ -90,7 +90,7 @@ const loadSlashCommands = async function (client) {
         }
     }
 
-    client.on("ready", async() => {
+    client.on("clientReady", async () => {
         // Register Slash Commands for a single guild
         // await client.guilds.cache
         //    .get("YOUR_GUILD_ID")
