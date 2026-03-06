@@ -12,7 +12,7 @@ async function handle(client, match) {
         let playerMentions = ""
         for (p in players) {
             var player = players[p]
-            var plDb = client.playerDatabase.players.find((e) => e.playername === player.playername)
+            var plDb = client.playerDatabase.players.find((e) => e.playerName === player.playername)
             var discordId = plDb ? plDb.discordId : null
             playerMentions += discordId ? `<@${discordId}> ` : player.playername + " "
         }
