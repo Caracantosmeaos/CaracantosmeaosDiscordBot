@@ -12,8 +12,9 @@ async function handle(client, match) {
         let playerMentions = ""
         for (p in players) {
             var player = players[p]
-            var discordId = client.playerDatabase.players.filter((e) => e.playerName === player.playerName)[0].discordId
-            playerMentions += discordId ? `<@${discordId}> ` : player.playerName + " "
+            var plDb = client.playerDatabase.players.find((e) => e.playername === player.playername)
+            var discordId = plDb ? plDb.discordId : null
+            playerMentions += discordId ? `<@${discordId}> ` : player.playername + " "
         }
 
         let embedMsg
@@ -82,6 +83,7 @@ async function handle(client, match) {
         console.info("[Event Listener] 'newmatch' hook: Message sended")
     } catch (e) {
         console.error("[Event Listener] 'newmatch' hook: ", e)
+        throw e;
     }
 }
 

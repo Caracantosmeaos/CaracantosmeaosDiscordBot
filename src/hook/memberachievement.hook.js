@@ -9,7 +9,8 @@ async function handle(client, achievement) {
         const announcementsChannel = await client.channels.cache.get("1134219726780911667")
 
         const player = achievement.player
-        const discordId = client.playerDatabase.players.filter((e) => e.playerName === player.playerName)[0].discordId
+        const plDb = client.playerDatabase.players.find((e) => e.playerName === player.playerName)
+        const discordId = plDb ? plDb.discordId : null
         const playerMention = discordId ? `<@${discordId}>` : player.playerName
 
         const encoraugements = ['¡Increible!', '¡Imparable!', '¡Impresionante!', '¡Menudo logro!']
@@ -60,6 +61,7 @@ async function handle(client, achievement) {
         console.info("[Event Listener] 'memberachievement' hook: Message sended")
     } catch (e) {
         console.error("[Event Listener] 'memberachievement' hook: " + e)
+        throw e;
     }
 }
 
